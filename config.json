@@ -1,0 +1,35 @@
+{	"baseUrl": "http://127.0.0.1:8000",
+	"endpoints": [
+		{
+			"name": "films",
+			"client_id": "17254928865-4at3b8r12i106limj3qsacct9h82dh3d.apps.googleusercontent.com",
+			"client_secret": "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",
+		  	"read": ["public"],
+		  	"write": ["admin"]
+		},
+	  	{
+		  	"name": "albums",
+			"client_id": "17254928865-ds1q7u7438ul6pp6d3j2j1jpha6ldit7.apps.googleusercontent.com",
+			"client_secret": "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",
+		  	"read": ["user"],
+		  	"write": ["user","admin"]
+		}
+  ],
+  "models":
+		{
+		   "films":
+				{
+				    "title":"text",
+					"director":"text",
+					"watched":"boolean",
+					"date":"date"
+				},
+			"albums":
+				{
+				   "title":"text",
+					"artists":"text",
+					"date":"date",
+					"rating":"integer"
+				}
+		}
+}
