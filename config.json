@@ -3,15 +3,15 @@
 	"endpoints": [
 		{
 			"name": "films",
-			"client_id": "17254928865-4at3b8r12i106limj3qsacct9h82dh3d.apps.googleusercontent.com",
-			"client_secret": "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",
+			"client_id": "EXAMPLE_FILMS_CLIENT_ID",
+			"client_secret": "EXAMPLE_FILMS_SECRET",
 		  	"read": ["public"],
 		  	"write": ["admin"]
 		},
 	  	{
 		  	"name": "albums",
-			"client_id": "17254928865-ds1q7u7438ul6pp6d3j2j1jpha6ldit7.apps.googleusercontent.com",
-			"client_secret": "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",
+			"client_id": "EXAMPLE_ALBUMS_CLIENT_ID",
+			"client_secret": "EXAMPLE_ALBUMS_SECRET",
 		  	"read": ["user"],
 		  	"write": ["user","admin"]
 		}
