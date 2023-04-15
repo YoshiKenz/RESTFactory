@@ -1,0 +1,29 @@
+*** RESTFactory ***
+
+1) Get client_id and client_secret from Google (https://console.cloud.google.com/) and
+    compile the config.json file with the information about the models you want to expose,
+     the permissions and the base URL that hosts the APIs.
+
+2) Run 'run_restfactory_main.sh' with the path and filename of json to use
+    or with the only one available parameter "-r" ("--reset") like:
+
+            ./run_restfactory_main.sh config.json
+
+            ./run_restfactory_main.sh -r
+
+3) Your Django app is now built and configured, so you can include it in your Django project,
+    use it as a startup, or just play around with it:
+
+            for example: python manage.py runserver 8000
+
+4) You can create a new admin for all applications with
+
+            python manage.py createadmin
+
+    You only need to enter email
+
+    Or you can assign an admin role for specific apps, for example
+
+            python manage.py createadmin filmes
+
+5) You can generate openApi spec with /schema, and navigate throw it with /docs
