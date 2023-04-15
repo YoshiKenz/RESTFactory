@@ -24,6 +24,6 @@
 
     Or you can assign an admin role for specific apps, for example
 
-            python manage.py createadmin filmes
+            for example: python manage.py createadmin filmes
 
 5) You can generate openApi spec with /schema, and navigate throw it with /docs
