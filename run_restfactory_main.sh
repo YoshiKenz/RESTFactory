@@ -2,4 +2,4 @@
 
 export PYTHONPATH=/RESTFactory:$PYTHONPATH
 
-python3 -m core.__main__ "$@"
+python3 -m core "$@"
