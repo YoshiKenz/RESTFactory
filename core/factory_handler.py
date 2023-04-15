@@ -4,6 +4,8 @@ import os
 import django
 import json
 
+import jsonschema
+
 from core import utils, utils_path, config, manage_helper
 from core.logger_package import logger
 from core.writer import utils as writer_utils, writer_urls_class
@@ -23,10 +25,21 @@ def install(config_path : str):
         # with open(sys.argv[1], 'r') as f:
         config_string = f.read()
 
+    with open(config.SCHEMA_FILE, 'r') as f:
+        schema_str = f.read()
+
+    try:
+        schema = json.loads(schema_str)
+    except json.JSONDecodeError:
+        logger.info('Il file schema.json non contiene un JSON valido')
+        exit(1)
+
     # convert config file in json
     config_json = json.loads(config_string)
 
     logger.info("Config read: %s", str(config_json))
+
+    jsonschema.validate(config_json, schema)
 
     # set base url
     config.base_url = config_json['baseUrl']

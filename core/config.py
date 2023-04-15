@@ -19,6 +19,7 @@ INPUT_FILE = "config.json"
 APPS_CONFIG_FILE = "apps.py"
 APP_VIEWS_FILE = "views.py"
 APP_URLS_FILE = "urls.py"
+SCHEMA_FILE = "schema.json"
 ADDITIONAL_URL_PATTERN = "additionalurlpattern"
 ADDITIONAL_APPS = "ADDITIONAL_APPS"
 SCOPES = ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email']

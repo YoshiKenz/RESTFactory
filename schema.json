@@ -1,0 +1,71 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "baseUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "The base URL for the REST API."
+        },
+        "endpoints": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the endpoint."
+                    },
+                    "client_id": {
+                        "type": "string",
+                        "description": "The client ID for authentication with the endpoint."
+                    },
+                    "client_secret": {
+                        "type": "string",
+                        "description": "The client secret for authentication with the endpoint."
+                    },
+                    "read": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of user roles with read access to the endpoint."
+                    },
+                    "write": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of user roles with write access to the endpoint."
+                    }
+                },
+                "required": [
+                    "name",
+                    "client_id",
+                    "client_secret",
+                    "read",
+                    "write"
+                ],
+                "additionalProperties": false
+            },
+            "description": "An array of endpoint objects describing the REST API endpoints."
+        },
+        "models": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "string"
+                },
+                "description": "An object describing the properties of a model."
+            },
+            "description": "An object containing keys representing the model names and values representing an object describing the properties of the model."
+        }
+    },
+    "required": [
+        "baseUrl",
+        "endpoints",
+        "models"
+    ],
+    "additionalProperties": false
+}
