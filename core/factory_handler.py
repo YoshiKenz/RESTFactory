@@ -16,10 +16,10 @@ from core.writer.writer_urls_class import WriterUrls
 from core.writer.writer_views_class import WriterViewsClass
 
 
-def install():
+def install(config_path : str):
 
     # Read the content of configuration file
-    with open(utils_path.CONFIG_INPUT_FILE_PATH, 'r') as f:
+    with open(config_path, 'r') as f:
         # with open(sys.argv[1], 'r') as f:
         config_string = f.read()
 
@@ -32,7 +32,7 @@ def install():
     config.base_url = config_json['baseUrl']
 
     # reset custom_apps old version
-    if not utils.apps_installed():
+    if utils.apps_installed():
         reset()
 
     # list of new custom_apps to install
@@ -43,18 +43,18 @@ def install():
     logger.info("new models to install: %s", str(models))
 
     for app in apps_new:
-        __install(app)
-        __install_model(app, models[app])
-        __configure(app, models[app], utils.get_client_data(app, config_json['endpoints']))
+        _install(app)
+        _install_model(app, models[app])
+        _configure(app, models[app], utils.get_client_data(app, config_json['endpoints']))
 
-    __create_permissions(config_json['endpoints'])
+    _create_permissions(config_json['endpoints'])
 
     apps_installed = utils.apps_installed()
-    __install_url(apps_installed)
+    _install_url(apps_installed)
 
 
 # .: STEP 1 :.
-def __install(app_new):
+def _install(app_new):
     """Install the new app.
 
         Do this steps:
@@ -86,7 +86,7 @@ def __install(app_new):
 
 
 # .: STEP 2 :. CHARGE MODELS
-def __install_model(app_new: str, attributes: dict):
+def _install_model(app_new: str, attributes: dict):
     """Install model from config file
 
             Do this steps:
@@ -111,7 +111,7 @@ def __install_model(app_new: str, attributes: dict):
     logger.info("step 03 : migration of model done. END TO SET MODELS FOR %s", app_new)
 
 
-def __configure(app_new: str, attributes: dict, client_data: dict):
+def _configure(app_new: str, attributes: dict, client_data: dict):
     """Do other step to configure new apps
 
             Do this steps:
@@ -139,7 +139,7 @@ def __configure(app_new: str, attributes: dict, client_data: dict):
     logger.info("step 03: added in ADDITIONAL_URLS. END TO INSTALL %s", app_new)
 
 
-def __install_url(apps_installed: list):
+def _install_url(apps_installed: list):
     # new_additional_url_patterns = []
     # for app in apps_installed:
     #    new_additional_url_patterns.append(util.get_url_pattern(app))
@@ -158,7 +158,7 @@ def __install_url(apps_installed: list):
         file_add_urls.write(import_tmp + tmp)
 
 
-def __create_permissions(endpoints: list):
+def _create_permissions(endpoints: list):
     for endpoint in endpoints:
         permissions_class = WriterPermission(endpoint)
         permissions_class.write()
@@ -176,15 +176,9 @@ def reset():
     apps_installed = utils.apps_installed()
     if apps_installed:
         for app in apps_installed:
+            logger.info("Deleted: %s", app)
             utils.delete(f'{utils_path.path(app)}')
+    logger.info("End of reset")
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='RESTFactory argument parser')
-    parser.add_argument('--reset', '-r', dest='reset', help='Reset installed apps', required=False, action='store_true')
-    args = vars(parser.parse_args())
-    os.chdir(utils_path.PROJECT_PATH)
-    if args['reset']:
-        reset()
-    else:
-        install()
+

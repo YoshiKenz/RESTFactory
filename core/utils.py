@@ -46,7 +46,7 @@ def apps_installed() -> list:
     apps_text = str(apps_result)
     apps_list = list(apps_text.split("\n"))
     apps_list.pop()
-    apps_list = __format_files_name(apps_list)
+    apps_list = _format_files_name(apps_list)
     return apps_list
 
 
@@ -62,7 +62,7 @@ def get_client_data(app: str, endpoints: list):
     return client_data
 
 
-def __format_files_name(list_filenames: list) -> list:
+def _format_files_name(list_filenames: list) -> list:
     """ Format string name file after filter bash command"""
     list_filenames = [re.sub('^./custom_apps/', '', item) for item in list_filenames]
 

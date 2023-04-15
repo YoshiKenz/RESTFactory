@@ -23,7 +23,7 @@ class WriterModel(WriterClass):
         self.extends = 'models.Model'
         self.attributes = attributes
 
-    def __write_attributes(self):
+    def _write_attributes(self):
         attributes = ""
         for name, type_field in self.attributes.items():
             attributes = "\n    ".join([attributes, f"{name} = models.{utils_field.generate_field(name, type_field)}"])
@@ -35,7 +35,7 @@ class WriterModel(WriterClass):
 
 class {self.name.capitalize()}(models.Model):
     id = models.TextField(primary_key=True)
-    {self.__write_attributes()}
+    {self._write_attributes()}
 
     def __str__(self):
         field_values = []

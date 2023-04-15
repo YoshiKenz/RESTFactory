@@ -2,7 +2,9 @@ import os
 
 from core import config
 
-CURRENT_PATH = os.getcwd()
+# CURRENT_PATH = os.getcwd()
+# PROJECT_PATH = os.path.abspath(os.path.join(CURRENT_PATH, os.pardir))
+CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
 PROJECT_PATH = os.path.abspath(os.path.join(CURRENT_PATH, os.pardir))
 PROJECT_MAIN_FOLDER_PATH = f'{PROJECT_PATH}/{config.PROJECT_NAME}'
 APPS_PATH = f'{PROJECT_PATH}/{config.APPS_FOLDER}'

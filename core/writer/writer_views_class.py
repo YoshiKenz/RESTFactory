@@ -54,7 +54,7 @@ class GoogleLogin(APIView):
             requests.Request(
                 method='GET',
                 url='https://accounts.google.com/o/oauth2/v2/auth',
-                {self.__create_param()}
+                {self._create_param()}
             )
         )
         return redirect(flow.url)
@@ -69,7 +69,7 @@ class GoogleCallback(APIView):
         code = request.GET.get('code')
         session = requests.Session()
         token_url = 'https://oauth2.googleapis.com/token'
-        {self.__create_token_param()}
+        {self._create_token_param()}
         
         token_response = session.post(token_url, data=token_params)
         token_data = token_response.json()
@@ -100,11 +100,11 @@ class GoogleCallback(APIView):
         return redirect('/api/{self.name}/')
         
         
-{self.__verify_google_token()}
+{self._verify_google_token()}
 """
         self.print()
 
-    def __create_token_param(self):
+    def _create_token_param(self):
         return """token_params = {
             'code': code,
                 'client_id': self.CLIENT_ID,
@@ -113,7 +113,7 @@ class GoogleCallback(APIView):
                 'grant_type': 'authorization_code',
             }"""
 
-    def __create_param(self):
+    def _create_param(self):
         return """params={
                         'client_id': self.CLIENT_ID,
                         'redirect_uri': self.REDIRECT_URI,
@@ -123,7 +123,7 @@ class GoogleCallback(APIView):
                         'prompt': 'consent'
                     }"""
 
-    def __verify_google_token(self):
+    def _verify_google_token(self):
         return """def verify_google_token(token: str):
     userinfo_url = 'https://www.googleapis.com/oauth2/v1/userinfo'
     userinfo_response = requests.get(userinfo_url, headers={'Authorization': f'Bearer {token}'})
